@@ -4,10 +4,10 @@ import "../src/assets/icons";
 export function Nav() {
   return (
     <div className="nav flex justify-between h-10 bg-blue-500">
-      <div className="flex justify-center items-center gap-5 ml-5">
-        <p className="text-white text-lg tracking-wide">
-          <span className="font-bold text-xl">CFGEN</span> - Calcolatore Codice
-          Fiscale
+      <div className="flex justify-center items-center gap-5 ml-5 text-white">
+        <p className="font-bold text-xl tracking-widest">CFGEN</p>
+        <p className="text-lg tracking-wide hidden md:block">
+          Calcolatore Codice Fiscale
         </p>
       </div>
       <ul className="flex justify-center items-center gap-5 mr-10 text-white font-bold">

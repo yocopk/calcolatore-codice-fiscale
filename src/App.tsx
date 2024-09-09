@@ -20,12 +20,17 @@ function App() {
   const [anno, setAnno] = useState("");
   const [sesso, setSesso] = useState("");
   const [comune, setComune] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
   const [items, setItems] = useState<string[]>(() => {
     const storedItems = localStorage.getItem("item");
     return storedItems ? JSON.parse(storedItems) : [];
   });
   const [cfCompleto, setCfCompleto] = useState("");
   const [suggerimenti, setSuggerimenti] = useState<string[]>([]);
+
+  function darkModeToggle() {
+    setDarkMode(!darkMode);
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -74,13 +79,17 @@ function App() {
   }
 
   return (
-    <div className="overflow-hidden h-screen">
+    <div
+      className={`${
+        darkMode && "dark"
+      } bg-gray-100 md:overflow-hidden h-screen`}
+    >
       <Nav />
 
-      <div className="bg-gray-400 gap-4 flex justify-center items-center w-screen h-screen">
+      <div className="bg-gray-400 dark:bg-neutral-600 gap-4 flex flex-col lg:flex-row justify-center items-center w-full py-10 h-auto min-h-screen md:w-screen md:h-screen lg:py-0">
         <div className="flex flex-col-reverse gap-3 justify-center items-center">
           <form
-            className="p-10 grid grid-cols-2 gap-5 bg-white rounded-xl"
+            className="p-10 flex flex-col md:grid md:grid-cols-2 gap-5 bg-white dark:bg-neutral-800 rounded-xl dark:text-white"
             onSubmit={handleSubmit}
           >
             {/* Icona utente accanto al cognome */}
@@ -91,7 +100,7 @@ function App() {
               <FontAwesomeIcon icon={["fas", "id-card"]} /> Cognome
             </label>
             <input
-              className="mr-2 capitalize bg-gray-300 rounded-md px-2 py-1"
+              className="mr-2 capitalize bg-gray-300 rounded-md px-2 py-1 dark:bg-neutral-600"
               id="cognome"
               type="text"
               name="cognome"
@@ -109,7 +118,7 @@ function App() {
               Nome
             </label>
             <input
-              className="mr-2 capitalize bg-gray-300 rounded-md px-2 py-1"
+              className="mr-2 capitalize bg-gray-300 rounded-md px-2 py-1 dark:bg-neutral-600"
               id="nome"
               type="text"
               name="nome"
@@ -127,7 +136,7 @@ function App() {
               <div className="flex gap-3">
                 {/* Giorno, mese, anno */}
                 <select
-                  className="bg-gray-300 rounded-md px-2 py-1"
+                  className="bg-gray-300 rounded-md px-2 py-1 dark:bg-neutral-600"
                   required
                   value={giorno}
                   onChange={(e) => setGiorno(e.target.value)}
@@ -140,7 +149,7 @@ function App() {
                   ))}
                 </select>
                 <select
-                  className="bg-gray-300 rounded-md px-2 py-1"
+                  className="bg-gray-300 rounded-md px-2 py-1 dark:bg-neutral-600"
                   required
                   value={mese}
                   onChange={(e) => setMese(e.target.value)}
@@ -166,7 +175,7 @@ function App() {
                   ))}
                 </select>
                 <select
-                  className="bg-gray-300 rounded-md px-2 py-1"
+                  className="bg-gray-300 rounded-md px-2 py-1 dark:bg-neutral-600"
                   required
                   value={anno}
                   onChange={(e) => setAnno(e.target.value)}
@@ -187,7 +196,7 @@ function App() {
               <FontAwesomeIcon icon={["fas", "venus-mars"]} /> Sesso
             </div>
             <select
-              className="bg-gray-300 rounded-md px-2 py-1"
+              className="bg-gray-300 rounded-md px-2 py-1 dark:bg-neutral-600"
               required
               value={sesso}
               onChange={(e) => setSesso(e.target.value)}
@@ -206,7 +215,7 @@ function App() {
             </label>
             <div className="w-full relative">
               <input
-                className="w-full capitalize bg-gray-300 rounded-md px-2 py-1"
+                className="w-full capitalize bg-gray-300 rounded-md px-2 py-1 dark:bg-neutral-600"
                 id="comune"
                 type="text"
                 name="comune"
@@ -218,7 +227,7 @@ function App() {
               />
               {/* Suggerimenti come dropdown */}
               {suggerimenti.length > 0 && (
-                <ul className="absolute bg-white border border-gray-300 mt-1 rounded-md shadow-md z-10 w-full max-h-60 overflow-y-auto">
+                <ul className="absolute bg-white border border-gray-300 dark:bg-neutral-600 mt-1 rounded-md shadow-md z-10 w-full max-h-60 overflow-y-auto">
                   {suggerimenti.map((suggerimento, index) => (
                     <li
                       key={index}
@@ -247,7 +256,7 @@ function App() {
           {/* Storico dei calcoli precedenti */}
         </div>
         <div
-          className="flex flex-col justify-between bg-white p-10 min-h-[300px] rounded-xl"
+          className="flex flex-col justify-between bg-white dark:bg-neutral-800 dark:text-white p-10 min-h-[300px] rounded-xl"
           id="history"
         >
           <h3 className="text-lg pb-4">
@@ -258,7 +267,7 @@ function App() {
               ? "nessun codice recente"
               : items.map((item, index) => (
                   <div key={index}>
-                    <div className="flex justify-between items-center gap-2 text-black font-normal">
+                    <div className="flex justify-between items-center gap-4 text-black dark:text-white font-normal">
                       {item} <CopyBtn textToCopy={item} />
                     </div>
                     <hr className="my-2 text-black" />
@@ -272,6 +281,16 @@ function App() {
             {" "}
             Cancella tutto
             <FontAwesomeIcon className="ml-2" icon={["fas", "trash"]} />
+          </button>
+          <button
+            onClick={darkModeToggle}
+            className="fixed bottom-10 right-10 h-10 w-10 rounded-full text-white bg-neutral-800 dark:bg-white dark:text-neutral-800"
+          >
+            {darkMode ? (
+              <FontAwesomeIcon icon={["fas", "sun"]} />
+            ) : (
+              <FontAwesomeIcon icon={["fas", "moon"]} />
+            )}
           </button>
         </div>
       </div>
