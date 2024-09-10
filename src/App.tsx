@@ -86,7 +86,7 @@ function App() {
     >
       <Nav />
 
-      <div className="bg-gray-400 dark:bg-neutral-600 gap-4 flex flex-col lg:flex-row justify-center items-center w-full py-10 h-auto min-h-screen md:w-screen md:h-screen lg:py-0">
+      <div className="bg-gray-400 transition-colors duration-200 dark:bg-neutral-600 gap-4 flex flex-col lg:flex-row justify-center items-center w-full py-10 h-auto min-h-screen md:w-screen md:h-screen lg:py-0">
         <div className="flex flex-col-reverse gap-3 justify-center items-center">
           <form
             className="p-10 flex flex-col md:grid md:grid-cols-2 gap-5 bg-white dark:bg-neutral-800 rounded-xl dark:text-white"
@@ -241,12 +241,13 @@ function App() {
               )}
             </div>
 
-            <button
-              className="bg-blue-500 rounded-md p-2 col-span-2 text-white hover:bg-blue-600"
+            <a
+              href="#logo"
+              className="bg-blue-500 text-center cursor-pointer rounded-md p-2 col-span-2 text-white hover:bg-blue-600"
               type="submit"
             >
               Calcola
-            </button>
+            </a>
           </form>
 
           <div className="flex justify-center items-center gap-2 text-3xl text-white bg-blue-500 p-2 w-full rounded-xl text-center">
